@@ -1,7 +1,12 @@
 export class FlightsData {
-    endTime: string | undefined;
-    startTime: string | undefined;
-    numberOfFLights: number=0;
-    currAirPortTime: string | undefined;
-    Iata: string | undefined;
+    data: Array<Flight> | undefined;
+    numberOfFlights: number = 0;
+    localTime: string | undefined;
+}
+
+export class Flight{
+    departureTimeS: string|undefined;
+    departureTimeE: string | undefined;
+    iata: string | undefined;
+    flightID:string | undefined;
 }

@@ -24,14 +24,18 @@ module.exports = class FlightService{
      * Create response
      */
     convertToFlightList(filteredFlightList) {
-        let res = [];
+        let flightList = [];
         if (!_.isEmpty(filteredFlightList)) {
             filteredFlightList.forEach(flight => {
                 const f = new Flight(flight);
-                res.push(f);
+                flightList.push(f);
             });
         }
-        return res;
+        return {
+            data: flightList,
+            numberOfFlights: flightList.length,
+            localTime: moment().format(),
+        };
     }
     /**
      * 

@@ -12,8 +12,8 @@ export class DataService {
   
 
   getFlightData() {
-    return this.http.post<FlightsData>(`${environment.apiBaseUrl}getFlights`, {}).subscribe(({}) => {
-      return 
+    return this.http.post<FlightsData>(`${environment.apiBaseUrl}getFlights`, {}).subscribe((res) => {
+      return res
     });
   }
 

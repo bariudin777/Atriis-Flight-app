@@ -11,7 +11,6 @@ module.exports=class Flight {
             departureTimeS: this.departureTime,
             departureTimeE: this.departureTime,
             iata: this.iata,
-            localTime: moment().format(),
         }
     }
 }
