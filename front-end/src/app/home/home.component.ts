@@ -18,7 +18,9 @@ export class HomeComponent implements OnInit {
   constructor(private dataManager:DataService) { }
   async ngOnInit() {
     this.showLoader();
+    this.hideElements();
     await this.getFlightData()
+    this.showElements()
      this.hideLoader();
       
   }
@@ -26,21 +28,41 @@ export class HomeComponent implements OnInit {
     this.flightData = await this.dataManager.getFlightData() as unknown as FlightsData;
   console.log(this.flightData)
   }
-  
 
+  
+/**
+ * showLoader
+ */
   showLoader() {
-    let i = document.getElementById("loader-container")
-    if (i != null) {    
-      i.style.visibility = "visible"
-      i.classList.add("is-active");
+    let elem = document.getElementById("loader-container")
+    if (elem != null) {    
+      elem.style.visibility ="visible"
+      elem.classList.add("is-active");
     }
   }
-
+/**
+ * hideLoader
+ */
   hideLoader() {
-    let i = document.getElementById("loader-container")
-    if (i != null) {
-      i.style.visibility = "hidden"
-      i.classList.remove("is-active");
+    let elem = document.getElementById("loader-container")
+    if (elem != null) {
+      elem.style.visibility = "hidden"
+      elem.classList.remove("is-active");
+    }
+  }
+  /**
+   * 
+   */
+  hideElements() {
+    let elem = document.getElementById("btn-wrapper")
+    if (elem != null) {
+      elem.style.visibility = "hidden"
+    }
+  }
+  showElements() {
+    let elem = document.getElementById("btn-wrapper")
+    if (elem != null) {
+      elem.style.visibility = "visible"
     }
   }
 
