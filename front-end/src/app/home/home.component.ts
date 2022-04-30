@@ -28,10 +28,10 @@ export class HomeComponent implements OnInit {
   constructor(private dataManager: DataService) { }
   async ngOnInit() {
     this.showLoader();
-    this.hideElements();
+    this.activateElements("hidden");
     await this.getFlightData()
-     await this.initData();
-    this.showElements()
+    await this.initData();
+    this.activateElements("visible")
     this.hideLoader();
       
   }
@@ -80,23 +80,15 @@ export class HomeComponent implements OnInit {
   /**
    * 
    */
-  hideElements() {
+  activateElements(action:string) {
     let btnElem = document.getElementById("btn-wrapper")
     let msgElem = document.getElementById("main-msg-container")
     if (btnElem != null && msgElem != null) {
-      btnElem.style.visibility = "hidden"
-      msgElem.style.visibility = "hidden"
+      btnElem.style.visibility = action
+      msgElem.style.visibility = action
     }
   }
-  showElements() {
-    let btnElem = document.getElementById("btn-wrapper")
-    let msgElem = document.getElementById("main-msg-container")
-    if (btnElem != null && msgElem != null) {
-      btnElem.style.visibility = "visible"
-      msgElem.style.visibility = "visible"
-    }
 
-  }
   displayFlights() {
     this.flightListFlag = !this.flightListFlag;
   }

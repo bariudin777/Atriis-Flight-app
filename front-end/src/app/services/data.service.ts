@@ -13,7 +13,7 @@ export class DataService {
 
   getFlightData() {
     return this.http.post(`${environment.apiBaseUrl}getFlights`, { iata: "JFK" })
-      .pipe(timeout(1000))
+      .pipe(timeout(10000))
       .toPromise()
       .catch(err => {
         //here I will insert logs(winston or other)
