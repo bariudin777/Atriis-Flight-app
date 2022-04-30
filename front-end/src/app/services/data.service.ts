@@ -5,16 +5,12 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class DataServiceService {
+export class DataService {
 
   constructor(private http: HttpClient) { }
   getFlightData() {
-    return this.http.post(`${environment.apiBaseUrl}getFlights?&iata="JFK"`, JSON.stringify({
-      numberOfFlights:3,
-      iata:"JFK"
-    })).subscribe((res) => {
-      console.log(res);
-      return res
+    return this.http.post(`${environment.apiBaseUrl}getFlights`,{}).subscribe((res) => {
+      console.log(res)
     });
   }
 

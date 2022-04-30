@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DataServiceService } from '../services/data-service.service';
+import { DataService } from '../services/data.service';
 
 
 @Component({
@@ -15,11 +15,9 @@ export class HomeComponent implements OnInit {
     "iata": "ZAZ"
 }]
 
-  constructor(private dataService:DataServiceService) { }
-
+  constructor(private dataManager:DataService) { }
   ngOnInit(): void {
-    let res = this.dataService.getFlightData();
-    console.log(`Response from backend is: ${JSON.stringify(res)}`)
+    let res = this.dataManager.getFlightData();
   }
 
 
