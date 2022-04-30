@@ -9,8 +9,7 @@ const axios = require('axios');
 
 /**
  * POST: /getFlights
- * body: number of flight (for display)
- *       iata code
+ * body: iata code
  * response: flights list
  */
 flightRouter.post('/getFlights', (req, res) => {
