@@ -41,7 +41,7 @@ module.exports = class FlightService{
             localTime: moment().format(),
             iata: iata,
             startTime: moment(startDate).format("h:mm"),
-            endDate: moment(endDate).format("h:mm"),
+            endTime: moment(endDate).format("h:mm"),
         };
     }
     /**
@@ -51,7 +51,8 @@ module.exports = class FlightService{
      * Iters on response data and filters the flights 
      */
     manageFlights(list,index) {
-   
+        startDate = moment().utc().add(TIME_INTERVAL * 2, "hour").format();
+        endDate = moment().utc().add(TIME_INTERVAL * 3, "hour").format();
         const updatedList = list.filter((a) => {
             let dtToCheck = moment.utc(a[`${index}`].scheduled).format()
             if (this.compareDate(dtToCheck,startDate,endDate)) {

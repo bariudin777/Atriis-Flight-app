@@ -23,6 +23,8 @@ export class HomeComponent implements OnInit {
   numberOfFLights?: number;
   fromTime?: string;
   toTime?: string;
+  flightListFlag: Boolean = false
+  
   constructor(private dataManager: DataService) { }
   async ngOnInit() {
     this.showLoader();
@@ -33,10 +35,15 @@ export class HomeComponent implements OnInit {
     this.hideLoader();
       
   }
+  /**
+   * getFlightData
+   */
   async getFlightData() {
     this.flightData = await this.dataManager.getFlightData() as unknown as FlightsData;
   }
-
+/**
+ *initData 
+ */
   async initData() {
     let data: Flight;
     if (typeof this.flightData.data != 'undefined') {
@@ -91,7 +98,7 @@ export class HomeComponent implements OnInit {
 
   }
   displayFlights() {
-    console.log(this.flightData.data)
+    this.flightListFlag = !this.flightListFlag;
   }
 }
 
