@@ -21,7 +21,7 @@ flightRouter.post('/getFlights', (req, res) => {
     axios.get(process.env.BASE_URL, { params }).then(response => {
       const apiResponse = response.data;
       const flightService = new FlightService();
-      const currFlights = flightService.getNFlight(apiResponse.data);
+      const currFlights = flightService.getNFlight(apiResponse.data,params.arr_iata);
       if (_.isEmpty(JSON.stringify(currFlights))) {
           res.sendStatus(204)
       }

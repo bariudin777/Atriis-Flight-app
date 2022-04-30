@@ -18,7 +18,7 @@ export class DataService {
   // }
 
   getFlightData() {
-    return  this.http.post(`${environment.apiBaseUrl}getFlights`, {}).toPromise()
+    return  this.http.post(`${environment.apiBaseUrl}getFlights`, {iata:"JFK"}).toPromise()
 }
 
 }

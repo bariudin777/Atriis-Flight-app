@@ -9,14 +9,14 @@
   <div class="row">
     <div id="btn-wrapper" class="col-3 col-s-3 menu">
       <ul>
-        <li>See Flights</li>
+        <li (click)="displayFlights()">See Flights</li>
 
       </ul>
     </div>
   
-    <div class="col-6 col-s-9">
-      <!-- <h1>Current local time in {{Iata}} is {{currAirPortTime}}</h1>
-      <p> There are {{numberOfFLights}} flights from {{startTime}} till {{endTime}}.</p> -->
+    <div id="main-msg-container" class="col-6 col-s-9">
+      <h1>Current local time in {{this.mainIata}} is {{this.localTime}}</h1>
+      <p> There are {{this.numberOfFLights}} flights from {{this.fromTime}} till {{this.toTime}}.</p> 
     </div>
   
     <div class="col-3 col-s-12">

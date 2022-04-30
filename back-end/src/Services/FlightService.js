@@ -3,6 +3,8 @@ const moment = require("moment");
 const Flight = require("../Models/Flight")
 const TIME_INTERVAL = 3;
 var _ = require('lodash');
+let startDate = moment().utc().add(TIME_INTERVAL * 2, "hour").format();
+let endDate = moment().utc().add(TIME_INTERVAL * 3, "hour").format();
 
 module.exports = class FlightService{
     /**
@@ -12,9 +14,11 @@ module.exports = class FlightService{
      * @returns 
      * Filters response and returns list of flight from current time +N for N hours forward
      */
-    getNFlight(flightsRawData) {
-        const filteredFlightList = this.manageFlights(flightsRawData)
-        const flightData = this.convertToFlightList(filteredFlightList)
+    getNFlight(flightsRawData,iata) {
+        const filteredArrivals = this.manageFlights(flightsRawData,'arrival');
+        const filteredDepartures = this.manageFlights(flightsRawData, 'departure');
+        const filteredFlightList = [...filteredArrivals, ...filteredDepartures]
+        const flightData = this.convertToFlightList(filteredFlightList,iata)
         return flightData;
     }
     /**
@@ -23,7 +27,7 @@ module.exports = class FlightService{
      * @returns
      * Create response
      */
-    convertToFlightList(filteredFlightList) {
+    convertToFlightList(filteredFlightList,iata) {
         let flightList = [];
         if (!_.isEmpty(filteredFlightList)) {
             filteredFlightList.forEach(flight => {
@@ -35,6 +39,9 @@ module.exports = class FlightService{
             data: flightList,
             numberOfFlights: flightList.length,
             localTime: moment().format(),
+            iata: iata,
+            startTime: moment(startDate).format("h:mm"),
+            endDate: moment(endDate).format("h:mm"),
         };
     }
     /**
@@ -43,11 +50,10 @@ module.exports = class FlightService{
      * @returns 
      * Iters on response data and filters the flights 
      */
-    manageFlights(list) {
-        let startDate = moment().utc().add(TIME_INTERVAL*2, "hour").format();
-        let endDate = moment().utc().add(TIME_INTERVAL*3, "hour").format();
+    manageFlights(list,index) {
+   
         const updatedList = list.filter((a) => {
-            let dtToCheck = moment.utc(a.departure.scheduled).format()
+            let dtToCheck = moment.utc(a[`${index}`].scheduled).format()
             if (this.compareDate(dtToCheck,startDate,endDate)) {
                 return a
             }

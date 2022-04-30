@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../services/data.service';
-import { FlightsData } from '../services/Models/flights-data.model';
+import { Flight, FlightsData } from '../services/Models/flights-data.model';
+import * as moment from 'moment';
 
 
 @Component({
@@ -13,36 +14,55 @@ export class HomeComponent implements OnInit {
     data: [],
     numberOfFlights: 0,
     localTime: "",
-  } ;
-
-  constructor(private dataManager:DataService) { }
+    iata: "",
+    startTime: "",
+    endTime:""
+  };
+  mainIata?: string | "";
+  localTime?: string 
+  numberOfFLights?: number;
+  fromTime?: string;
+  toTime?: string;
+  constructor(private dataManager: DataService) { }
   async ngOnInit() {
     this.showLoader();
     this.hideElements();
     await this.getFlightData()
+     await this.initData();
     this.showElements()
-     this.hideLoader();
+    this.hideLoader();
       
   }
   async getFlightData() {
     this.flightData = await this.dataManager.getFlightData() as unknown as FlightsData;
-  console.log(this.flightData)
   }
 
-  
-/**
- * showLoader
- */
+  async initData() {
+    let data: Flight;
+    if (typeof this.flightData.data != 'undefined') {
+      data = this.flightData.data[0];
+      this.mainIata = this.flightData.iata;
+      this.localTime = moment(this.flightData.localTime).format("h:mm")
+      this.numberOfFLights = this.flightData.numberOfFlights;
+      this.fromTime = this.flightData.startTime;
+      this.toTime = this.flightData.endTime;
+    }
+    
+  }
+
+  /**
+   * showLoader
+   */
   showLoader() {
     let elem = document.getElementById("loader-container")
-    if (elem != null) {    
-      elem.style.visibility ="visible"
+    if (elem != null) {
+      elem.style.visibility = "visible"
       elem.classList.add("is-active");
     }
   }
-/**
- * hideLoader
- */
+  /**
+   * hideLoader
+   */
   hideLoader() {
     let elem = document.getElementById("loader-container")
     if (elem != null) {
@@ -54,19 +74,25 @@ export class HomeComponent implements OnInit {
    * 
    */
   hideElements() {
-    let elem = document.getElementById("btn-wrapper")
-    if (elem != null) {
-      elem.style.visibility = "hidden"
+    let btnElem = document.getElementById("btn-wrapper")
+    let msgElem = document.getElementById("main-msg-container")
+    if (btnElem != null && msgElem != null) {
+      btnElem.style.visibility = "hidden"
+      msgElem.style.visibility = "hidden"
     }
   }
   showElements() {
-    let elem = document.getElementById("btn-wrapper")
-    if (elem != null) {
-      elem.style.visibility = "visible"
+    let btnElem = document.getElementById("btn-wrapper")
+    let msgElem = document.getElementById("main-msg-container")
+    if (btnElem != null && msgElem != null) {
+      btnElem.style.visibility = "visible"
+      msgElem.style.visibility = "visible"
     }
+
   }
-
+  displayFlights() {
+    console.log(this.flightData.data)
+  }
 }
-
 
 

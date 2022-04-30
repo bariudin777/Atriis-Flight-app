@@ -2,6 +2,9 @@ export class FlightsData {
     data: Array<Flight> | undefined;
     numberOfFlights: number = 0;
     localTime: string | undefined;
+    iata: string | undefined;
+    startTime: string | undefined;
+    endTime:string | undefined;
 }
 
 export class Flight{
