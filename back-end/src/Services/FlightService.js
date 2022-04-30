@@ -2,6 +2,7 @@ const { utc } = require("moment");
 const moment = require("moment");
 const Flight = require("../Models/Flight")
 const TIME_INTERVAL = 3;
+var _ = require('lodash');
 
 module.exports = class FlightService{
     /**
@@ -12,7 +13,23 @@ module.exports = class FlightService{
      */
     getNFlight(flightsRawData) {
         const filteredFlightList = this.manageFlights(flightsRawData)
-        return filteredFlightList;
+        const flightList = this.convertToFlightList(filteredFlightList)
+        return flightList;
+    }
+    /**
+     * 
+     * @param {*} filteredFlightList 
+     * @returns 
+     */
+    convertToFlightList(filteredFlightList) {
+        let res = [];
+        if (!_.isEmpty(filteredFlightList)) {
+            filteredFlightList.forEach(flight => {
+                const f = new Flight(flight);
+                res.push(f);
+            });
+        }
+        return res;
     }
     /**
      * 
