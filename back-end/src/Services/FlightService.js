@@ -1,3 +1,4 @@
+const { utc } = require("moment");
 const moment = require("moment");
 const Flight = require("../Models/Flight")
 const TIME_INTERVAL = 3;
@@ -19,11 +20,12 @@ module.exports = class FlightService{
      * @returns 
      */
     manageFlights(list) {
-        let currDayTime = moment().add(TIME_INTERVAL, "hour");
+        let startDate = moment().utc().add(TIME_INTERVAL*2, "hour").format();
+        let endDate = moment().utc().add(TIME_INTERVAL*3, "hour").format();
         const updatedList = list.filter((a) => {
-            let time = moment(a.departure.scheduled)
-            if (this.compareDate(time, currDayTime)) {
-                return this.createFlightList(a);
+            let dtToCheck = moment.utc(a.departure.scheduled).format()
+            if (this.compareDate(dtToCheck,startDate,endDate)) {
+                return a
             }
         })
         return updatedList;
@@ -37,22 +39,20 @@ module.exports = class FlightService{
         return flight.getFlightDetails();
     }
     
-    /**
-     * 
-     * @param {string} firstDate 
-     * @param {string} secondDate 
-     * @returns 
-     */
-    compareDate(dateTime,currDayDateTime) {
-        //find the lower bound
-        if (moment(dateTime).isAfter(currDayDateTime)) {
-            let lowerBound = currDayDateTime;
-            let upperBound = currDayDateTime.add(TIME_INTERVAL, 'hour');
-            //if all between 
-            if (!moment(dateTime).isBetween(lowerBound, upperBound)) {
-                return true;
-            }
+  /**
+   * 
+   * @param {string} dateTime 
+   * @param {moment Object} currDayDateTime 
+   * @returns 
+   */
+    compareDate(dtToCheck,startDate,endDate) {
+
+    if (moment(dtToCheck).isBetween(startDate, endDate)) {
+            return true;
+        }
+        else {
+            return false;
         }
     }
-
 }
+
