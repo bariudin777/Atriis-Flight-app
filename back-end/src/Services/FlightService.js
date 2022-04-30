@@ -14,8 +14,8 @@ module.exports = class FlightService{
      */
     getNFlight(flightsRawData) {
         const filteredFlightList = this.manageFlights(flightsRawData)
-        const flightList = this.convertToFlightList(filteredFlightList)
-        return flightList;
+        const flightData = this.convertToFlightList(filteredFlightList)
+        return flightData;
     }
     /**
      * 
@@ -31,7 +31,7 @@ module.exports = class FlightService{
                 res.push(f);
             });
         }
-        return res;
+        return { data: res, time:moment().format()};
     }
     /**
      * 

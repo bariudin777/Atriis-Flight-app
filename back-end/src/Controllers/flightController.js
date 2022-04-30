@@ -25,7 +25,7 @@ flightRouter.post('/getFlights', (req, res) => {
       if (_.isEmpty(JSON.stringify(currFlights))) {
           res.sendStatus(204)
       }
-        res.send(JSON.stringify(currFlights))
+        res.send(currFlights)
         
     }).catch(err => {
       console.log(err);
