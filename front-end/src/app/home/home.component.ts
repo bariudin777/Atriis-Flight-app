@@ -9,19 +9,42 @@ import { FlightsData } from '../services/Models/flights-data.model';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
-  mockDat:Array<Object> =[  {
-    "flightID": "LEZG",
-    "departureTimeS": "2022-04-30T15:15:00+00:00",
-    "departureTimeE": "2022-04-30T15:15:00+00:00",
-    "iata": "ZAZ"
-}]
+  flightData: FlightsData = {
+    data: [],
+    numberOfFlights: 0,
+    localTime: "",
+  } ;
 
   constructor(private dataManager:DataService) { }
-  ngOnInit(): void {
-    const res = this.dataManager.getFlightData();
-    
+  async ngOnInit() {
+    this.showLoader();
+    await this.getFlightData()
+     this.hideLoader();
+      
+  }
+  async getFlightData() {
+    this.flightData = await this.dataManager.getFlightData() as unknown as FlightsData;
+  console.log(this.flightData)
+  }
+  
+
+  showLoader() {
+    let i = document.getElementById("loader-container")
+    if (i != null) {    
+      i.style.visibility = "visible"
+      i.classList.add("is-active");
+    }
   }
 
+  hideLoader() {
+    let i = document.getElementById("loader-container")
+    if (i != null) {
+      i.style.visibility = "hidden"
+      i.classList.remove("is-active");
+    }
+  }
 
 }
+
+
+

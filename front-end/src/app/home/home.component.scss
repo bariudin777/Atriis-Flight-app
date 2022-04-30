@@ -87,3 +87,16 @@
     .col-11 {width: 91.66%;}
     .col-12 {width: 100%;}
   }
+
+
+  .loader-wrapper{
+    
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(50%, 50%);
+  }
+  .loader{
+    height: 80px;
+    width: 80px;
+  }

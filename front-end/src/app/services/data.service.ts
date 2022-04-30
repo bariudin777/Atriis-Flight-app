@@ -11,10 +11,14 @@ export class DataService {
   constructor(private http: HttpClient) { }
   
 
+  // getFlightData() {
+  //   return this.http.post<FlightsData>(`${environment.apiBaseUrl}getFlights`, {}).subscribe((res) => {
+  //     return res as FlightsData
+  //   })
+  // }
+
   getFlightData() {
-    return this.http.post<FlightsData>(`${environment.apiBaseUrl}getFlights`, {}).subscribe((res) => {
-      return res
-    });
-  }
+    return  this.http.post(`${environment.apiBaseUrl}getFlights`, {}).toPromise()
+}
 
 }
