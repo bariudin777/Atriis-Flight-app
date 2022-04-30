@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { timeout } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { FlightsData } from './Models/flights-data.model';
 
 @Injectable({
   providedIn: 'root'
