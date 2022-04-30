@@ -6,6 +6,11 @@ module.exports = class Flight {
         this.departureTimeE = moment(flightObject.departure.estimated).format("h:mm");
         this.iata = flightObject.departure.iata;
     }
+    /**
+     * getFlightDetails
+     * @returns 
+     * return response details
+     */
     getFlightDetails(){
         return {
             flightId: this.flightID,

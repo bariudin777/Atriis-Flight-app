@@ -1,4 +1,3 @@
-const { utc } = require("moment");
 const moment = require("moment");
 const Flight = require("../Models/Flight")
 const TIME_INTERVAL = 3;
