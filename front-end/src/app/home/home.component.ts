@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../services/data.service';
+import { FlightsData } from '../services/Models/flights-data.model';
 
 
 @Component({
@@ -8,6 +9,7 @@ import { DataService } from '../services/data.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+
   mockDat:Array<Object> =[  {
     "flightID": "LEZG",
     "departureTimeS": "2022-04-30T15:15:00+00:00",
@@ -17,7 +19,8 @@ export class HomeComponent implements OnInit {
 
   constructor(private dataManager:DataService) { }
   ngOnInit(): void {
-    let res = this.dataManager.getFlightData();
+    const res = this.dataManager.getFlightData();
+    
   }
 
 
