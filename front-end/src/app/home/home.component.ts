@@ -78,7 +78,7 @@ export class HomeComponent implements OnInit {
     }
   }
   /**
-   * 
+   * activateElements
    */
   activateElements(action:string) {
     let btnElem = document.getElementById("btn-wrapper")
@@ -88,7 +88,9 @@ export class HomeComponent implements OnInit {
       msgElem.style.visibility = action
     }
   }
-
+/**
+ * displayFlights
+ */
   displayFlights() {
     this.flightListFlag = !this.flightListFlag;
   }

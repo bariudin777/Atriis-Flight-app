@@ -9,7 +9,10 @@ import { environment } from 'src/environments/environment';
 export class DataService {
 
   constructor(private http: HttpClient) { }
-
+/**
+ * POST: /getFlights
+ * @returns 
+ */
   getFlightData() {
     return this.http.post(`${environment.apiBaseUrl}getFlights`, { iata: "JFK" })
       .pipe(timeout(10000))
