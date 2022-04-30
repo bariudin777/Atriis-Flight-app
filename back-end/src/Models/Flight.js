@@ -10,7 +10,8 @@ module.exports=class Flight {
             flightId: this.flightID,
             departureTimeS: this.departureTime,
             departureTimeE: this.departureTime,
-            iata:this.iata,
+            iata: this.iata,
+            localTime: moment().format(),
         }
     }
 }

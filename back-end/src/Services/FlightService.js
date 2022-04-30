@@ -31,7 +31,7 @@ module.exports = class FlightService{
                 res.push(f);
             });
         }
-        return { data: res, time:moment().format()};
+        return res;
     }
     /**
      * 
