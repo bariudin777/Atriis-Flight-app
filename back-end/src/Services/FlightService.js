@@ -46,9 +46,10 @@ module.exports = class FlightService{
     compareDate(dateTime,currDayDateTime) {
         //find the lower bound
         if (moment(dateTime).isAfter(currDayDateTime)) {
+            let lowerBound = currDayDateTime;
             let upperBound = currDayDateTime.add(TIME_INTERVAL, 'hour');
             //if all between 
-            if (moment(dateTime).isBetween(currDayDateTime, upperBound)) {
+            if (!moment(dateTime).isBetween(lowerBound, upperBound)) {
                 return true;
             }
         }
