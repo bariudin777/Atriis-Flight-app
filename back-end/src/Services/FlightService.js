@@ -10,6 +10,7 @@ module.exports = class FlightService{
      * @param {number} numberOfFlights 
      * @param {List<Object>} flightsRawData 
      * @returns 
+     * Filters response and returns list of flight from current time +N for N hours forward
      */
     getNFlight(flightsRawData) {
         const filteredFlightList = this.manageFlights(flightsRawData)
@@ -18,8 +19,9 @@ module.exports = class FlightService{
     }
     /**
      * 
-     * @param {*} filteredFlightList 
-     * @returns 
+     * @param {Array of Objects} filteredFlightList 
+     * @returns
+     * Create response
      */
     convertToFlightList(filteredFlightList) {
         let res = [];
@@ -35,6 +37,7 @@ module.exports = class FlightService{
      * 
      * @param {List<Object>} list 
      * @returns 
+     * Iters on response data and filters the flights 
      */
     manageFlights(list) {
         let startDate = moment().utc().add(TIME_INTERVAL*2, "hour").format();
@@ -47,20 +50,13 @@ module.exports = class FlightService{
         })
         return updatedList;
     }
-    /**
-     * 
-     * @param {Object} filteredFlightList 
-     */
-    createFlightList(flightObject) {
-        const flight = new Flight(flightObject);
-        return flight.getFlightDetails();
-    }
-    
-  /**
+
+/**
    * 
    * @param {string} dateTime 
    * @param {moment Object} currDayDateTime 
-   * @returns 
+   * @returns
+   * Compare function- using moment
    */
     compareDate(dtToCheck,startDate,endDate) {
 
